@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Devcrud">
+    <title>Escuela de la Escucha</title>
+    <!-- font icons -->
+    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
+
+    <!-- Bootstrap + Dorang main styles -->
+	<link rel="stylesheet" href="assets/css/dorang.css">
+    <script>
+        async function getData(url) {
+            try {
+                const response = await fetch(`https://noembed.com/embed?url=${url}`);
+                const data = await response.json();
+				console.log(data);
+                return data || 'Título no encontrado';
+            } catch (error) {
+                console.error('Error obteniendo el título:', error);
+                return 'Error al obtener título';
+            }
+        }
+    </script>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" class="dark-theme">
+    <!-- page container -->
+    <div class="container page-container">
+        <div class="col-md-10 col-lg-8 m-auto">
+            <h6 class="title mb-4">E.M.M.yD. María Dolores Pradera, </br>escuela de escucha</h6>
+            <p class="mb-5">Este es un regalo que nos hacemos porque nos apetece compartir 
+			con nuestra comunidad educativa un listado de recomendaciones que consideramos importante. 
+			</br>La música y la danza son un bien cultural que hay que preservar, cuidar y recordar. 
+			</br><b>¿Cual sería tu recomendación si alguien te preguntara?</b>
+			</br></br>En este listado han participado Inés, Inma, María, Alba, Javier, Sanja, Lucía, Mauri, Lina, Javiera, Perico, Jesús, Carlos Ramos, Özdemir y Raúl.</p>
+        </div>  
+
+        <!-- row -->
+        <div class="row mb-4" id="fila">  
+        </div><!-- end of row -->
+
+		<script>
+		async function loadRecommendations(){ 
+            const urls = [
+			'https://www.youtube.com/watch?v=HSSxhcrgZ4g&list=PLyte_slElYX1qJ7kNcEJsIv4qZQeNbg7z',
+			'https://www.youtube.com/watch?v=Xyvlqp28LnM&list=OLAK5uy_mUWmkRboTix6kiPH1YbuwB9zWOuUdceCI',
+			'https://www.youtube.com/watch?v=wOAXj0en4LQ&list=PLBLXtHXQZ-bWEY3byRXm1_7UqQ_uIiLJb',
+			'https://www.youtube.com/watch?v=85UbTc6fSF4&list=PLza5-8yeb-RLq0zDQUqKmPF2qQ9WsrHaW',
+			'https://www.youtube.com/watch?v=eSHCfW2kcgk&list=PLjQ9_LaIy2f8V61ZeY-ZyBHxolwEytS_o',
+			'https://www.youtube.com/watch?v=LyTUApaZBLg&list=OLAK5uy_n3EFlLf7QbZgBIhO5h3nxEa24SgSNXRNM',
+			'https://www.youtube.com/watch?v=6xTXnh1sNo0&list=OLAK5uy_nEG3biRuQ_jUXHib9MyECyhwiIVHf8T0o',
+			'https://www.youtube.com/watch?v=6bjSGZo6fFc&list=PLLVPFxhn9iVbtMqtaY3qt77WbV_NUA7iX',
+			'https://www.youtube.com/watch?v=N_dqNC6w-e0&list=OLAK5uy_lxjqY2K_mqrrsyKU1PUeIoupb5zMd-HJc',
+			'https://www.youtube.com/watch?v=BZwyv-5sF1g&list=PL-sfVFXx9uj96EMvDoOh0UpF7tlUe5A-0',
+			'https://www.youtube.com/watch?v=XqthxoJEf7c&list=OLAK5uy_nlVsyX0dWJn0qJiTWyyxgw7nu_Z7AjeYU',
+			'https://www.youtube.com/watch?v=OzL7u5teZhg&list=OLAK5uy_kogOCcCSJj35BNnHBOHHq4ueqasxkFP8g',
+			'https://www.youtube.com/watch?v=fivpDILQOQU&list=PLcD4Wbz6ucKz84OFkL79VnLPc7d1Ho1Sb',
+			'https://www.youtube.com/watch?v=BUVohouJ-7w&list=PLqjG5gstnlWNGfbr1ZVDqu-fajDJpn7Gp',
+			'https://www.youtube.com/watch?v=Xq5eOicer-A&list=OLAK5uy_mT6RqfkuvUJr8JzIdibu7NigZjejrMMzw',
+			'https://www.youtube.com/watch?v=F77e3uWBC-Q&list=PLlVyDKSqyFhc37t7nAOP9sdbqGNNNs4MC',
+			'https://www.youtube.com/watch?v=L-2aOOCGt3Q&list=PLx_tNsv_GvGW2TKDeXMDS_7vsv81WjPBX',
+			'https://www.youtube.com/watch?v=8yU10V-qecM&list=PLDD384A851C9A979E',
+			'https://www.youtube.com/watch?v=p0PjECSyJ7w&list=PLtUX_8l6KtS9mnDRNM-mI89Eiee8mVmNK',
+			'https://www.youtube.com/watch?v=uqwNk7m6AnA&list=OLAK5uy_kOJNJG0N10-fwkFPxaTZAs1s2qRGZbkXE',
+			'https://www.youtube.com/watch?v=Bf3HiN58Td0',
+			'https://www.youtube.com/watch?v=VtxFAA0xlg8&list=PLXhfRoiJBIitfeySfg3M2JpsHofCulKv9',
+			'https://www.youtube.com/watch?v=Zr9QMnXi9LQ&list=PL45B1EFC2D063D1E6',
+			'https://www.youtube.com/watch?v=grlkoRazWh4&list=PLQvL6GLJiX93_ehUpKYCS44w4nLkxzS5C',
+			'https://www.youtube.com/watch?v=GM16nsaf4DU&list=PLUymBQ-UO4oxhRlFLlElu9ZzqgGVdZGBz',
+			'https://www.youtube.com/watch?v=ZXJWO2FQ16c&list=RDQM7y8np-N5Hck&start_radio=1',
+			'https://www.youtube.com/watch?v=ApUuL-Fg0Wk',
+			'https://www.youtube.com/watch?v=bjw1ec_arf4&list=PL4z9TYi-rgztDa7Kmp3Wsp6q8FTV8HAEX',
+			'https://www.youtube.com/watch?v=oFvmrW7G8S4&list=PL8DCD_mN8AGSDlOEwOB4ddLPBA9JpV3qJ',
+			'https://www.youtube.com/watch?v=o4RV4spF0cQ&list=PL_PD_RD4vvcjjh0w_ohn1Fz4YVLmBLl9i',
+			'https://www.youtube.com/watch?v=IYUXdl-YxGU&list=OLAK5uy_mzgWlRokHVipwei-vO8noJ3SGpyJJaZhg',
+			'https://www.youtube.com/watch?v=cmfeFXsAKg4&list=OLAK5uy_n2huxbKeH40VIDSntjoMwlEyUbV9eV-7A',
+			'https://www.youtube.com/watch?v=NgcjWuYqrFA&list=OLAK5uy_n8nc9reB08G7nNliqgS9H8sKkzzwR-F_g',
+			'https://www.youtube.com/watch?v=kcGhlpsX54A&list=PLL9keRJN01tEDoc89LsOT7LbOAWxGbhaX',
+			'https://www.youtube.com/watch?v=MS-RkoXaqR8&list=OLAK5uy_lGx03LrAEBbxQtTef3gtQaqvU5vUP_bp0',
+			'https://youtu.be/Uea-jJtPa1E?feature=shared',
+			'https://youtu.be/G9wNcno5ZGM?feature=shared',
+			'https://youtu.be/NqXspygR4UE?feature=shared',
+			'https://youtu.be/-xISL2dxyhY?feature=shared',
+			'https://youtu.be/H9rpv0GeBOw?feature=shared',
+			'https://youtu.be/vDqULFUg6CY?si=v8roOfwcZmvlNv6b',
+			'https://youtu.be/ua2tyckT9AQ?si=S4EvT66KgGivKXFt',
+			'https://youtu.be/VpV53LqcuhU?si=805T3-4ztuG7FEAz',
+			'https://youtu.be/hMCVe0cs4DI?si=94UP2E5BHmYYg8ew',
+			'https://youtu.be/k9ynZnEBtvw?si=mb58f8CkppFgR1VX',
+			'https://youtu.be/BZitP4yvdnA?si=XeoBVSSYyeW1IF_L',
+			'https://youtu.be/S0E5_lU4wsY?si=B9XiiOVoo5zR3cxJ',
+			'https://youtu.be/d_Hr1R59OaI?si=IYfjwyiMX6mJc3BA',
+			'https://youtu.be/iiK9s6OOJn4?si=pHwGMDvMsyYvXyvY',
+			'https://youtu.be/71kGVUSfMjQ?si=MRh7yetU9xxOPKqn',
+			'https://www.youtube.com/watch?v=idNDpE7swJk&list=PL2ACE88CE29292ECA',
+			'https://youtu.be/vRqrORTGl8c?si=K1vv06OgaGmp0opK',
+			'https://youtu.be/4etQPsY-2YM?si=35PR-qT-iC0qlTyr',
+			'https://youtu.be/AfUstdQzCwI?si=PhdbvsS0tHNI4joi',
+			'https://youtu.be/KOe9_-9729E?si=VrN4IPSpLMKCtp1Z',
+			'https://youtu.be/DzxlMfUzqIM?si=4T0az3CY6YFgJoqt',
+			'https://youtu.be/V0GVaJq_CTM?si=0g948gKr-wGtzW59',
+			'https://youtu.be/9ZX_XCYokQo?si=1XPovhCzDJQl9XKX',
+			'https://youtu.be/Gh9WX7TKfkI?si=ft3w7Wqlw8vEQ0H0',
+			'https://youtu.be/FxhbAGwEYGQ?si=5uT0mFzw83jDZaMO',
+			'https://youtu.be/lSyN3iUZ2dk?si=A8uSkDolTLjwqQyK',
+			'https://youtu.be/motWrHDYDho?si=peuB5h7Dz0KThobt',
+			'https://www.youtube.com/watch?v=k6xZnw9X8kg&list=PLDvpPfJ42ac4SvU6yoSpJLjysgEa3CJUG',
+			'https://youtu.be/A7Jywbktfw4?si=Riths8Cs8I7_LPzT',
+			'https://www.youtube.com/watch?v=o4_HUTbmWUY&list=PLvXYyNS0emzrC5HbcjDo6umq6hxMNCCye',
+			'https://youtu.be/zpyTHkjhH7c?si=xL1cAU9CSpFh30mv',
+			'https://www.youtube.com/watch?v=9efHwnFAkuA&list=RDEMd4C3hcOZpWLreIBfjybrSw',
+			'https://www.youtube.com/watch?v=eyVSIexjSnE&list=PLOxlmz2JMSQyk0_m4tSs6KA1gpTFnLLnQ',
+			'https://www.youtube.com/watch?v=1xdnH44vIrQ',
+			'https://www.youtube.com/watch?v=Jf0cFSRBapU',
+			'https://www.youtube.com/watch?v=4AkEgD3Wl7w',
+			'https://www.youtube.com/watch?v=fsJ3JjpZyoA&list=PLMNMmvIC2uGYzD05aNB5I1E5Omz90fAcr',
+			'https://www.youtube.com/watch?v=4cq7CzSC7u0',
+			'https://www.youtube.com/watch?v=oxnQvVhjdmg',
+			'https://www.youtube.com/watch?v=4HzZmZ-8A9E',
+			'https://www.youtube.com/watch?v=WEs4zYOk09g',
+			'https://www.youtube.com/watch?v=PwOLfc6LqhM&list=PLZQRMHTW9fPBgVnbVGj5y0Nt0HMkq4jDS',
+			'https://www.youtube.com/watch?v=VrqMJgKWjuk&list=PLfJndz0utgOP7mm_cfMt7qVRYhZagn-Nr',
+			'https://www.youtube.com/watch?v=JtWCD_8kz5U',
+			'https://www.youtube.com/watch?v=VUPttaYMoGM&list=PLqkqWRTmHEcWuF8FX1MJb2X8NnLf34hhF',
+			'https://www.youtube.com/watch?v=BUgSJt7Q7gw&list=PLQrO-C6odG9aiuTM9aVqFM_00359gs0OM',
+			'https://www.youtube.com/watch?v=SZkR3PyHTs0',
+			'https://www.youtube.com/watch?v=NUnXxh5U25Y&list=PLtP8IJbMRbLwJwxyaCUaUWtBo1KK2K7RG',
+			'https://www.youtube.com/watch?v=OvWlRceGRv0&list=OLAK5uy_lNatGKrHfgj38SST12kbup_xdLmYqkOnw',
+			'https://www.youtube.com/watch?v=x6BxpR--Z7Q&list=PLLvHDBa5TupfUpHTdfR5-0JSgrn5RUZ2k',
+			'https://www.youtube.com/watch?v=w6I0YR3Cj84&list=OLAK5uy_lK3p1eHqp11XqYfNLcRDFGLgUEzVSZ3TA',
+			'https://www.youtube.com/watch?v=Eulc1fY5X7Y&list=OLAK5uy_krRDVAE601EZuQ2Xih2ZmSnDQxO9ambeE',
+			'https://www.youtube.com/watch?v=jzlLcxkfP7k&list=PLH1JGOJgZ2u2PbImAm-J6RsBnLRL_bYCA',
+			'https://www.youtube.com/watch?v=7YeWiIQQZAo',
+			'https://www.youtube.com/watch?v=mt55SNIOSFM&list=OLAK5uy_k1-TBWSrKyAXNvt0cp9vm-xD3Hbdh6X6s',
+			'https://www.youtube.com/watch?v=bVHLMmrPjzg&list=OLAK5uy_lwp1izw5JxLyGKe2qoZ8d98EhgeKvxUFk',
+			'https://www.youtube.com/watch?v=FEacDWPWfJU&list=OLAK5uy_l1x-JAx0w53suECoCI0YJtW6VB8DBQWRQ',
+			'https://youtu.be/LVgdHjL4a-4?si=Ju_ixZTBhCwbr5PX',
+			'https://youtu.be/4MPuoOj5TIw?si=G2ruW9qMkMQdfvCq',
+			'https://www.youtube.com/watch?v=cLQox8e9688&list=PLycVTiaj8OI-aOPBmpwUlhQp83Puf0hLX',
+			'https://www.youtube.com/watch?v=455m6h3rl1M&list=PLrIRbytwpAMmqrTHThCJDy9Pt4S6DGuC3',
+			'https://www.youtube.com/watch?v=zVY--knsDc4&list=OLAK5uy_nTzb7zSTx3Kz1_I0Cc-9hhS7xbsvRpts4',
+			'https://youtu.be/blQA3S8tToQ?si=dG-WM828rSx89zZ3',
+			'https://www.youtube.com/watch?v=u0zJCpovwyY&list=OLAK5uy_n8tAFWgrnREDrmU-tyA8X_kcXWNNhc7kk',
+			'https://www.youtube.com/watch?v=-8gD32ziryQ&list=OLAK5uy_nR6nZEKNHohhx5AGhk7Iy0ChCezhjUztY',
+			'https://www.youtube.com/watch?v=5QTGBsiCJdA&list=OLAK5uy_mC1T0HxDCI7gQbBuQ3epE3SBofkcOtI88',
+			'https://www.youtube.com/watch?v=WV99abClpkw&list=OLAK5uy_nJiKn9sbZXAM492SOPi9pSvvl-uSX_lkc',
+			'https://www.youtube.com/watch?v=FUOsFGCMFzo&list=OLAK5uy_kbFX9NsfElsV_T5mDZKg9mYMJ_ZSv-New',
+			'https://www.youtube.com/watch?v=Ia9qADMR7zQ&list=OLAK5uy_lZixyjkEwMYoJC3F59wOgj9dcddFbiEF0',
+			'https://www.youtube.com/watch?v=sJrQKXiek-k&pp=ygUYYWxiYW4gYmVyZyB2aW9saW5rb256ZXJ0',
+			'https://www.youtube.com/watch?v=U__lpPDTUS4',
+			'https://www.youtube.com/watch?v=w08QaW-_9qU&list=OLAK5uy_l6A5LOIqdgykHHAaMbNvtHg3MZbMrTomE',
+			'https://www.youtube.com/watch?v=OnzKsoBxaJ4&list=OLAK5uy_mmJICICWsRal8jZ9_6Kd97MCkaPevxJeQ',
+			'https://www.youtube.com/watch?v=Vh7oIP-QSHs&list=PLL-NbN8uTOijqTJxQ9BMFcDe7UiWDMVwc',
+			'https://www.youtube.com/watch?v=JfJyCl19QVU&list=OLAK5uy_mKv3wmMz8OXVOh8vIQH2d5VqLqZUg4fa8',
+			'https://www.youtube.com/watch?v=l9D8Llg61Rs',
+			'https://www.youtube.com/watch?v=lBD03DmoHcg',
+			'https://www.youtube.com/watch?v=wZP7xQnJSQw&list=PLLmB4WPeJZ0iabVyDl2OIC5M5hJae_Yq8',
+			'https://www.youtube.com/watch?v=jIlk-b1YtQ0&list=PL94tgLrA9X7uvlGY3m092n1SaVlNc2J2r',
+			'https://www.youtube.com/watch?v=UNMTEz4HRBM&list=OLAK5uy_lzPdlvLUz7CMZVdZTbhZANYm_g2qtGvJ8',
+			'https://www.youtube.com/watch?v=PcFHeJ9SGkM&list=PLqjxo66HDaQHKQqU30QkH4XaSFcDiSFEU',
+			'https://www.youtube.com/watch?v=HX89XJ_NZVI&list=PLRWyY6Odt6U3gnPEuRemBMlESRyfctF1r&index=4',
+			'https://www.youtube.com/watch?v=FEFw_E5j3eA',
+			'https://www.youtube.com/watch?v=1fUzY6BQTTA',
+			'https://www.youtube.com/watch?v=hH-zs1CXP3E&list=PLZSlkmp1ZK2kqk7rzICOO88MyQDhpn4X3',
+			'https://www.youtube.com/watch?v=Xq5eOicer-A&list=OLAK5uy_mT6RqfkuvUJr8JzIdibu7NigZjejrMMzw',
+			'https://www.youtube.com/watch?v=pw5WuL2AvTQ&list=PLrdMAhpNWMv4lAZO_9NpWq4hxntyeOQgs',
+			'https://www.youtube.com/watch?v=kq-1DwJZHyU',
+			'https://www.youtube.com/watch?v=oFvmrW7G8S4&list=OLAK5uy_nUpBjyIg5Awt5M3M-Pf6_thC8yWZDpHg0',
+			'https://www.youtube.com/watch?v=Dymn2jUIXX8&list=PLzEHKNWU6nuafI_S2pMwyQGzhaDo0OOdU',
+			'https://www.youtube.com/watch?v=97xCVMCMvVg&list=PLuf0j1wXZ47z9syxwzJIyR3tOCIeNRZi3',
+			'https://youtu.be/b3rVsFG-U8w?si=VzJa_JLl7UXDJTMv',
+			'https://www.youtube.com/watch?v=tANyrsAiXq0&list=OLAK5uy_lBmehFdJrxagZX6vBGfq09h1rubEaBxw0',
+			'https://www.youtube.com/watch?v=aIl81CxXdYM&list=PLpWp5j-E0Ja2giDlV-bbxtwypJNQSpzK6',
+			'https://www.youtube.com/watch?v=lZbfNtDCHdM&list=PLuf0j1wXZ47zV3Nt4BRlzfHamTWs1YFrR',
+			'https://www.youtube.com/watch?v=xLPSn-mB--k&list=PLdX-6wWmOwOUhn0paYH8VrNnKkEXX_tKx',
+			'https://www.youtube.com/watch?v=2m6haX6WZ2M',
+			'https://www.youtube.com/watch?v=9iEwvP2f_3w&list=PLTekan-ikhIPIQEmPn7sxLnMdqL3x6ey_',
+'https://www.youtube.com/watch?v=t7CtO8HHu0c&list=PLHWUSAAJL2mtbXiKA5GciSIzsciYvtHLH',
+'https://www.youtube.com/watch?v=w_47XDiBxvc&list=OLAK5uy_lAOMqXEaEYkLHDjKTs4uJW3oi3tcE39yo',
+'https://www.youtube.com/watch?v=MDx2N4BmS_M&list=PL8BD67444F7E63A1A',
+'https://www.youtube.com/watch?v=uCquDq2LXTI&list=OLAK5uy_lYNehxWIzYAfCgLNPkDTi5HKx10UHEqDM',
+'https://www.youtube.com/watch?v=ud53lWVSy_0&list=OLAK5uy_l5e58UbmLKDspTWT1eFzwFVYWppHfRnHI',
+'https://www.youtube.com/watch?v=Uku6M3U9XpE&list=OLAK5uy_l4xBABWnjMoRdC9IoDhSa6I2G5RDdSQxQ',
+'https://www.youtube.com/watch?v=cXvoNtuZS4s&list=OLAK5uy_nBHPxu_x10TYhO4vbP895bER4a70ru0aI',
+'https://www.youtube.com/watch?v=lVqJ486EIBw&list=OLAK5uy_mpZEAUjlQm_SjC9CMNMA34310_agwcYJc',
+'https://www.youtube.com/watch?v=WrkINKs01yk&list=OLAK5uy_k9uha7udGwT04TJCCbPY7kngIBz-1MO6U',
+'https://www.youtube.com/watch?v=AMtW9EYrGME&list=OLAK5uy_l6AKN87zSP9uyEYy_ZTNt-nI-sRnFNbHg',
+'https://www.youtube.com/watch?v=LXYZQTt-Kuo',
+'https://www.youtube.com/watch?v=f_A_wgu5YD4',
+'https://www.youtube.com/watch?v=Al1o33CRXsU&list=PLpuAQIiG6Znp_SRcaF-mJ8q1ef-7yeHtO',
+'https://www.youtube.com/watch?v=6-7zuxo6qCo&list=PL9UnDODXQs8htpY-DgfC22sZyj5qoCilj',
+'https://www.youtube.com/watch?v=uj-3mpjDC8M&list=RDuj-3mpjDC8M&start_radio=1',
+'https://www.youtube.com/watch?v=0ArlUSVDQIw&list=PLpwHb97XjkRsC8lcHjmy4DlHZicQuQE5M',
+'https://www.youtube.com/watch?v=GGmGMEVbTAY&list=PLQSGKwfvWpEGqdKb2J9lfKG_0Dadqj3Uk',
+'https://www.youtube.com/watch?v=n3qQtSRmHxo&list=PLI6kLIhBBwmRujqWFfrB7ODT046U7O0HW',
+'https://www.youtube.com/watch?v=cGkBwH4sK9k&list=PLt8vQ_I-IwHosttHEDXyIPJG3FSk1SqOI',
+'https://www.youtube.com/watch?v=XKbvSigdsiw&list=PLGF4EBI2BHTM_Huxtkn0inoRwUK-L-9la',
+'https://www.youtube.com/watch?v=sWcLccMuCA8&list=PLiN-7mukU_RFooOYRV24OVaorPdJNcvSS',
+
+
+			]; // Reemplazar con la lectura del CSV si es necesario
+
+			const descripciones = [
+				'Es música de Purcell reversionada con algunos instrumentistas especialistas en música antigua y algunos de jazz. Una fiesta maravillosa',
+				'Música de Vivaldi con aire celta... ¡otra mezcla!',
+				'Música de Paco de Lucía interpretada por un pianista y un flautista estupendos',
+				'Las sonatas de J. S. Bach para flauta interpretadas con la flauta que se usaba en su época, y probablemente como lo tocaban en su época ',
+				'Si lo escuchas no te lo crees, pero... ¡es una armónica! Música Jazz tocada con armónica por un genio de este instrumento ',
+				'Música para bailar de un grupo con músicos fantásticos y una cantante espectacular ',
+				'Música divertida hecha con... ¡juguetes!',
+				'Un disco de Natalia Lafourcade (pop-folk) grabado en directo, para disfrutar de unos arreglos muy especiales y de ver disfrutar a los músicos en el escenario ',
+				'La música de C. Debussy, que siempre suena un poco mágica, para un instrumento que conocemos poco: el oboe',
+				'Nuevas musicas antiguas lo llaman: canciones inspiradas en la música anterior al 1600 con un aire más actual ',
+				'Max Richter/ Antonio Vivaldi: Recomposed',
+				'Radiohead: Pablo Honey',
+				'Duomo: Berlin Redux',
+				'Dorantes: Orobroy',
+				'Fetén fetén: Bailables',
+				'Ara Malikian: Mis Primeras Cuatro Estaciones',
+				'Classical Chillout 2',
+				'John Williams: E. T. el Extraterrestre',
+				'Woodstock Collection',
+				'Mari: Mari Samuelsen',
+				'En 1965 Ennio Morricone compuso la BSO de Per un pugno di dollari, primer western de Sergio Leone. La música de Morricone en su cine es una parte esencial, y no una capa posterior en posproducción, o un acompañamiento. Supuso un sonido nuevo con una poética propia -en muchas ocasiones incluso a cada personaje le acompaña siempre su música particular que anticipa su llegada- con ostinatos característicos, para una nueva forma de contar el oeste. Este recopilatorio reúne algunos de sus mejores temas entre numerosas bandas sonoras.',
+				'Considerado uno de los mejores discos del progresivo de la historia, su quinto álbum tiene influencias africanas, étnicas, e incorpora violines que dan una atmósfera parecida a la de Béla Bartók. Robert Fripp  aquí propone acompañamientos jazzísticos llenos de síncopas con ritmos muy especiales.',
+				'Messiaen fue capturado en 1940 cerca del comienzo de la segunda guerra mundial, y compuso este cuarteto para los instrumentos que se encontraban a disposición de los internos del campo de prisioneros. Plantea el fin del tiempo como el fin del pasado y el comienzo de la eternidad: no quería oír ritmos constantes como los tambores militares, y en su lugar aspiraba a ritmos fuera del tiempo.',
+				'Una música envolvente que refleja a través de sencillas notas una profunda intimidad, melancolía, tensión contenida que conectó con gente de todo el mundo. Con instrumentos de cuerda, piano, sintetizadores, algunos temas surgieron de forma improvisada mientras David Lynch le guiaba con sus palabras sobre lo que se vería en la serie, y le pidió que no cambiara ni una sola nota de lo que Badalamenti tocó.',
+				'John Zorn ha publicado más de doscientos títulos y se resiste deliberadamente a la categorización. Escrita para piano solista, seis niños sopranos y orquesta completa, rinde homenaje al espíritu creativo indomable que negocia la aporía de la vida y la muerte. Mitad concierto para piano, mitad Réquiem, supone una nueva visión de la música orquestal moderna.',
+				'Una de las obras cumbre del minimalismo, influenciada por el gamelán y con efectos psicoacústicos. Un factor importante en la pieza es el uso de la respiración humana, utilizada en los clarinetes y las voces, que ayudan a estructurar y dar pulso. El intérprete toca la nota pulsante durante el tiempo que puede sostenerla, mientras que cada acorde es deconstruido melódicamente por el conjunto, junto con el aumento de las notas sostenidas.',
+				'Scheherezade es una nueva forma de composición, hasta cierto punto a medio camino entre la Sinfonía fantástica de Hector Berlioz (1830) y el poema sinfónico Hungaria (1854) de Franz Liszt. Basada en el clásico Las mil y una noches, hay un marcado uso de la variación en los temas. Con una orquestación deslumbrante y un interés por Oriente, el violín expresa la melodía de la narradora, Sheherezade, que conmueve al sultán (y al oyente) con sus historias. ',
+				'Este disco que es casi un collage mezcla tradiciones musicales dispares: rock, jazz, ópera, punk. Fue un disco revolucionario en 1967 y sigue siéndolo hoy. Los efectos de sonido de la segunda suite sirvieron de inspiración a muchos artistas, como Jimi Hendrix, The Rolling Stones y The Beatles.',
+				'Morente hace música las palabras de Lorca, que toman cuerpo. Un disco valiente que abre en canal las raíces del flamenco: el desgarro y la potencia de los versos de Lorca arden en un auténtico diálogo entre el flamenco y el rock sin precedentes.',
+				'Incluye trip hop, dance, experimentación con cuerdas, coqueteos con la estética de los musicales de Broadway, avant-garde, electrónica de diversas orientaciones, minimalismo folk, paisajes inmersivos y estética industrial. El aspecto visual es parte fundamental en la experimentación artística de Björk: sus vídeos y su imagen siempre han marcado un tono vanguardista que trasciende lo puramente musical.',
+				'Denominación de origen de David Palomar. Palos tradicionales del flamenco actualizados a través de su cante.',
+				'Poema del cante jondo de Miguel Poveda. Flamenco antigo con toques de folclore.',
+				'Prohibido el toque de Juanfe Pérez. Flamenco tocado desde el bajo eléctrico con aires de jazz.',
+				'Tremenda de Rosario "La Tremendita". Flamenco unido con música electrónica.',
+				'Diacrónico de Eliseo Parra. Experto y maestro de la música tradicional española.',
+				'El Sombrero de Tres Picos. Coreografía: Antonio el Bailarín Música: Manuel de Falla. Personalmente una de las mejores coreografías de la Danza Española.',
+				'Ritmos. Coreografía: Alberto Lorca Música. José Nieto',
+				'Patricia guerrero bailando por Alegrías.',
+				'Manuel Liñan bailando por Soleá. Tradición, innovación y libertad, baila con bata de cola y mantón, todo ello unido con movimientos contemporáneos',
+				'Puerta de Tierra. Coreografía: Antonio el Bailarín Música: Isaac Albéniz. Baile de Escuela Bolera, un estilo poco conocido de la Danza Española.',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				'Swing Singers hacen con la música instrumental de Bach en su momento algo completamente nuevo mostrando la genialidad y las posibilidades creativas que nos ha dejado el gran genio Johann Sebastian Bach!',
+				'B.Mc Ferrin canta Air de J.S.Bach. Así  de actual, posible y divertido sigue sonando Bach',
+				'Svjatoslav Richter toca los estudios de Chopin,lo que se llama estudio y puede sonar en la interpretación de unos de los más grandes pianistas de nuestra época!!',
+				'Matija Dedic y su grupo hacen una espectacular  jazz versión de Badinerie de J.S.Bach!!',
+				'Marta Zabaleta,pianista española toca las obras de l@s alumn@s  de gran compositora y maestra Nadia Boulanger!!',
+				'Jean Rondeau ,un excelente clavcenista toca Vértigo una obra del siglo XVII,del compositor J.N.Pancrace Royer!!y hoy suena así!!',
+				'Ivo Pogorelic, en este video toca en la competición Chopin la segunda sonata en sí bemol menor de F.Chopin,y el tribunal lo califica con muy mala nota ( hay algunas notas sucias;)..Martha Argerich ,única del tribunal,y el público le califican cómo el genio!! Y hoy en día nos sigue ofreciendo unas de las más inolvidables interpretaciones !!!',
+				'Glenn Gould toca 1.mov de J.S.Bach concierto No 1 en  re-menor con la introducción de explicado de Leonard Berstein( compositor,director de orquesta y " educador" musical).  Lo que Gould ha dejado en sus interpretaciones, ha sido,y sigue siendo un inspirador regalo musical.',
+				'Martha Argerich,la pianista que hoy en día sigue tocando los conciertos ( tiene 83 años!!) Y sigue en lo más alto en la profesión que no siempre ha sido fácil de abrirse el camino una mujer! Aquí una propina de Scarlatti Sonata K.141 re menor!!',
+				'Vladimir Horowitz ,un legendario pianista cuya capacidad de interpretación,técnica, musicalidad y amor por la música ha dejado unas de más preciosas interpretaciones. Aquí Schubert Impromptu en Sol bemol Mayor!!',
+				'Rodrigo: Invocación y Danza · Carlos Ramos Delgado Guitarra: Pujol, Asencio, Turina, Ponce, Rodrigo. Released on: 2003-01-15. Composer: Joaquín Rodrigo. Lyricist: Carlos Ramos Delgado',
+				'Passagalia in G Minor · Heinrich Ignaz Franz von Biber · Xavier Díaz-Latorre. Stolen Roses. ℗ 2017 Musurgia',
+				'Ralph Towner, Ay first light',
+				'Jeremy Jouve and friends ',
+				'Roland Dyens, Nuages',
+				'Fandango, Quinteto para cuerda y guitarra G 448 en Re mayor. Luigi Boccherini (1743 - 1805). Arreglo para violín, guitarra y castañuelas por La Villa Suena. Violín: Inma Almendros ‪@inmaalmendros‬​. Guitarra: Carlos Ramos ‪@carlosramosguitar‬​. Castañuelas: Javier Formoso',
+				'Mix Andres Segovia',
+				'Pat Metheny ten best songs',
+				'Paco de Lucia, Almoraima',
+				'David Russell, varios: Sor, Barrios, ... ',
+				'Gene Krupa es uno de los primeros bateristas en hacer del solo de batería una parte fundamental del jazz.',
+				'Art Blakey fue un pionero del hard bop y uno de los más grandes bateristas del jazz. Este álbum es esencial para entender este gran cambio.',
+				'Elvin Jones, el baterista de Coltrane, ofrece una de las performances más intensas y complejas en la historia del jazz.',
+				'Tony Williams, con apenas 17 años, marcó la diferencia en la batería moderna con su estilo innovador junto a Miles Daves',
+				'Este disco de Billy Cobham fusiona jazz y rock, y es un hito dentro de la música fusión.',
+				'En este álbum, el estilo técnico y melódico de Steve Gadd se destaca como uno de los grandes logros de la fusión de jazz y otros géneros.',
+				'Este álbum refleja la precisión y la capacidad técnica de Dave Weckl, quien se ha convirtido en uno de los bateristas más influyentes en la escena de la fusión contemporánea.',
+				'Jojo Mayer rompe barreras al fusionar la electrónica con la batería en vivo. Su estilo innovador transforma la forma en que se percibe la interacción de la batería con la música electrónica.',
+				'Chris Dave lleva la batería a nuevos límites, combinando elementos de jazz, hip-hop y funk en un álbum lleno de creatividad y experimentación.',
+				'Jersey es un álbum del Mark Guiliana Jazz Quartet que fusiona jazz contemporáneo con elementos electrónicos y experimentales. La gran destreza técnica y creatividad de Mark Guiliana como baterista que combina grooves complejos y atmósferas innovadoras resume la evolución anterior en la actualidad.',
+				'The Expanding Universe es un disco imprescindible de la compositora Laurie Spiegel. Recopilado y remasterizado en el año 2012 con una colección de obras de música algorítmica muy sofisticadas para la época. Entre la música por ordenador y el folk, Laurie Spiegel consigue que pensamientos abstractos suenen de maravilla. ',
+				'Mother Earths Plantasia, a menudo abreviado como Plantasia, es un álbum de música electrónica del compositor canadiense Mort Garson publicado por primera vez en 1976. El álbum contiene música realizada específicamente para ser escuchada por plantas.​ A su salida, el álbum tuvo una distribución muy limitada ya que solo se hallaba disponible como regalo para aquellos que compraban una planta de interior en una tienda llamada «Mother Earth» en Los Ángeles, California (EE. UU.); o un colchón de la marca Simmons en la cadena de grandes almacenes estadounidense Sears.1 Debido a esto, el álbum no se popularizó en el momento de su lanzamiento. Sin embargo, desde entonces, este ha ganado estatus de culto al tratarse de una de las primeras representaciones de la música electrónica.​ Garson hizo uso de un sintetizador moog para componer el álbum.1',
+				'Kid A es el cuarto álbum de estudio de la banda británica de rock alternativo Radiohead, lanzado el 2 de octubre de 2000. Fue un éxito comercial a nivel internacional,​ llegando a obtener un disco de platino una semana después de su lanzamiento en el Reino Unido.​ Pese a la falta de un sencillo oficial o videoclip que sirviera como publicidad, Kid A fue el primer álbum de Radiohead en debutar en el primer puesto en Estados Unidos.​ Su éxito pudo haberse debido a una campaña única de mercadotecnia, su previo lanzamiento por Internet,​ o a la expectativa generada por su álbum anterior, OK Computer.',
+				'El dúo electrónico Hidrogenesse dedicó parte de 2011 y 2012 a preparar un homenaje al matemático inglés Alan Turing (1912-1954), uno de los padres de la ciencia de la computación, de la inteligencia artificial y que colaboró decisivamente con el gobierno inglés descifrando los códigos nazis durante la Segunda Guerra Mundial. El homenaje consta de ocho canciones que han escrito sobre la vida, la obra y las ideas del matemático.',
+				'Biophilia (Biofilia, en español) es un proyecto musical y séptimo álbum de estudio de la cantante y compositora islandesa Björk. Fue lanzado el 5 de octubre de 2011 por Universal Music, posteriormente por las discográficas Polydor, One Little Indian, Smekkleysa y Nonesuch en otros países.​ El álbum tiene un concepto más etéreo que su último álbum, Volta (2007). Incluye estilos musicales como electrónica, minimalismo, wave etéreo y experimental. El álbum ha sido parcialmente realizado en un iPad y se ofreció como una serie de aplicaciones para este. Björk ha descrito el proyecto, como una colección multimedia que engloba música, aplicaciones, internet, instalaciones y espectáculos en directo. Biophilia es el primer «álbum de estudio de formato app» en el mundo, en colaboración con Apple.',
+				'(Mondo Sonoro) Imaginaos un folclore hecho por máquinas; un abrazo entre la pasión salvaje de los rituales tribales más tradicionales y un cableado faraónico de loops intravenosos; un baile flamenco ortopédico, que sangra por las tomas de corriente. En ese sitio encontraréis a Sole Parody, que tras haber parido un álbum debut bajo su álter ego Le Parody, en el que se colaba en las rendijas que existen entre la soledad y la comunidad (“Cásala (sound track)”, 2012), ahora llora y se conecta a los enchufes que no existen en las paredes para firmar un espectacular e impredecible segundo disco, “Hondo” (Warner Music, 2015), que la consagra como una de las punibles lideresas para aspirar al trono de Tonadillera 2.0.',
+				'(Mondo Sonoro) “Manual de cortejo” no es un disco fácil, y menos aún, de una sola escucha o de un random que lo convertirá en algo casi incomprensible. Se entiende mejor como pieza compacta, como unidad ajena al escrúpulo. Que los sonidos tradicionales mezclen con la electrónica, que en sus versos se hable de libertad, de WhatsApp o del vivo de las castañuelas, se fragua en el encanto de “Ronda de robledo de Sanabria”, en la recuperación coplera de “El día que nací yo”, el caos de “Xiringüelu”, la emoción de “Rambalín” (con coro minero) incluso el spoken-word de “A galán tiene que ser el baile” o el rito mágico de “Muñeira para a filla da bruixa”. Y para acabar, homenaje a Angelita Caneiro, conocedora de una tradición musical al filo del olvido y que, gracias a Rodrigo Cuevas, revive resplandeciente, en su voz y en su imaginación.',
+				'Third (en español: Tercero) es el tercer álbum de estudio del grupo musical británico de trip hop y electrónica Portishead.​ Fue lanzado en el Reino Unido el 28 de abril de 2008 a través de Island Records, y un día después en los Estados Unidos a través de Mercury Records. Fue el primer álbum de estudio de Portishead en 11 años después de su disco homónimo. En este álbum el grupo se aleja completamente del estilo trip hop que los habían popularizado incorporando nuevas influencias como krautrock, surf rock, doo wop y las bandas sonoras de la película de John Carpenter.​ Third fue nombrado uno de los mejores álbumes de 2008 por varias publicaciones. Ingresó al top 10 de las listas de música de varios países y fue certificado con un disco de oro en el Reino Unido.',
+				'Snowflakes Are Dancing es el primer álbum de estudio oficial del compositor e intérprete japonés Isao Tomita. El trabajo se publicó en septiembre de 1974. En su segunda edición publicada en Japón en 1991 el disco pasó a llamarse Clair de Lune por contener como pieza central del álbum a esta melodía, pero en su tercer lanzamiento del año 2000 conservó su nombre original.',
+				'Marina Herlop es a menudo descrita como una pianista, un vestigio persistente de su formación clásica. Al escuchar Pripyat se puede sentir el esfuerzo emocional y el esfuerzo creativo que se implicó en el disco. Los fanáticos de Nanook y Babasha reconocerán la combinación de piano melancólico y líneas vocales elegantes que se encuentran en pistas de Pripyat como abans abans. Pero Pripyat tiene un sonido mucho más completo, casi caótico, en comparación con el trabajo anterior de Herlop, con la adición de baterías electrónicas, líneas de bajo eléctrico y una gran cantidad de efectos de producción sublimes.',
+				'Sketches of Spain. Es mi tradición escucharlo en semana santa. Miles Davis retorciendo melodías españolas. Me gusta la idea tener algunos discos o canciones para un momento del año determinado.',
+				'Dark side of the moon. Oda a la locura. A quién no le va a gustar.',
+				'El primer disco que tuve. ¡Viva Mozart y viva el clarinete!. Comentan que la clarinetista, Sabine Meyer se jubila este año, en febrero da el que sería su último concierto en Madrid. Os recomiendo a los jóvenes que, si no un primer disco, recordéis cuál fue la primera playlist que creásteis, que no la borréis y la guardéis con cariño.',
+				'2ª Sinfonía de Mahler con la Luzern Festival Orchestra y Abbado. Es de mis grabaciones en directo favoritas. Para mí, tocar bien en directo siempre es un plus. El último movimiento es para emocionarse y llorar a gusto. Es importante tener música con la que poder hacerlo.',
+				'Let it be. Síntesis de los Beatles. Después de mucho experimentar, se quedan con lo que funciona sin demasiados artificios. Pero, desde luego, recomendable escuchar todo lo que viene antes para apreciar el viaje. Los músicos, como los Pokémon, tiene que tener su evolución.',
+				'Lo descubrí hace relativamente poco. Mezclar a músicos de épocas tan distintas como Rameau y Debussy me parece maravilloso. Por más mezclas con sentido.',
+				'Paranoid. Las sonoridades que exploran me parecen maravillosas.',
+				'4ª Sinfonía de Brahms. En mis primeros años veinte la devoré semanalmente, me traía muchas imágenes a la cabeza. Es importante tener música que te haga pensar en cosas, que te haga imaginar.',
+				'Made in Japan. Me parce increíble lo bien que tocaba esta gente en directo, virtuosismo del bueno. Disco en directo con gente que sabe tocar instrumentos o cantar en condiciones es siempre buena cosa. Años ha toqué en una de las salas donde se grabó, fue todo un honor.',
+				'The last recital. La última grabación en directo (antes de que muriera muy joven en un accidente) de Fritz Wunderlich, por todas las veces que lo he cantado en la ducha en mi alemán zarrapastroso creyéndome tenor. Es importante tener momentos en la vida de fliparte con el canto, aunque lo hagas terriblemente mal. Que me perdonen los que dejo fuera (Nina Simone, Shostakovich, Carlos Cano, Alban Berg, Bach, Ravel, Celtas Cortos, Benny Goodman...).',
+				'Hariprasad Chaurasia es una de las leyendas de la música tradicional de la India. Toca el bansuri, una flauta hecha de caña. Es una música directamente conectada con lo espiritual, lo ritual, lo ceremonial que es a su vez lo cotidiano del día a día en esa parte del mundo. Melodía (Raga) y ritmo (Tala) son elementos fundamentales de esta cultura musical. ',
+				'Nils Okland, Sigbjorn Apeland y Oyvind Skarbo son 1982 un trío noruego de música improvisada. Folklore e improvisación libre. Es un disco muy especial. Mágico y bello.',
+				'Vijay Iyer es un pianista de Jazz. El Jazz puede tener muchos subgéneros y corrientes estilisticas. En el ADN del Jazz existe una pulsión por la experimentación. Todo es posible. ',
+				'Olivier Messiaen es uno de los grandes compositores del siglo pasado. Turangalila es una obra espectacular y sorprendente. Llena de colores. Con una orquestación vibrante. Atención a ese sonido tan particular de las Ondas Martenot un instrumento electrónico de teclado con sus "Glissandos" tan característicos. Toda la obra de Messiaen es maravillosa. ',
+				'Alban Berg compuso este concierto para violín y orquesta en 1935. Lo dedicó a la memoria de la hija de Alma Mahler Gropius que falleció muy joven y por la que Alban Berg sentía gran cariño pues era amigo de la familia. Vilde Frang es la solista y hace una interpretación bellísima con carácter y gran musicalidad. Uno de los mejores conciertos para Violín y una de las mejores obras del siglo XX. ',
+				'En 1988 Pauline Oliveros, Stuart Dempster y Panaiotis (a.k.a Peter Ward) se van de excursión con sus instrumentos a una cisterna gigante a varios metros bajo tierra. Graban este disco tan increíble. "Deep Listening" es el concepto que surge de esta experiencia .Oliveros como compositora y divulgadora promovió esta práctica donde la meditación y la improvisación inspiradas en la escucha sirven como vehículo creativo. ',
+				'Charles Ives (1887-1954).  Aunque de formación musical se dedicó a dirigir una aseguradora. Una de las más importantes de EEUU. Se hizo rico. A la vez que continuaba con sus negocios siguió componiendo. Se adelantó a todas las vanguardias musicales que surgirían en el siglo xx y que vendrían de Europa. ',
+				'Streifenjunko son un dúo de saxofón y trompeta. Ambos incorporan elementos electrónicos. Espen Reinertsen toca el saxo tenor y Eivind Lønning la trompeta. La primera vez que les escuché me quedé fascinado. Hay una sinergia muy especial entre ellos. Fantástico.',
+				'Ella y Louis. Qué maravilla ambos. Ojo con Oscar Peterson (piano) que es un fenómeno. Felicidad.',
+				'Skúli Sverrisson y Óskar Guðjónsson son dos músicos Islandeses. Sencillo y bonito. ',
+				'Trio de impro libre: Marilyn Lerner (piano), Matt Brubeck (violoncello), Nick Fraser (bateria)',
+				'Concierto de impro libre CECIL TAYLOR QUINTET: Cecil Taylor (p,voc), Harri Sjstrm (ss), Tristan Honsinger (cello), Thurman Barker (mar,perc), Paul Lovens (dr)',
+				'tomeka reid quartet',
+				'Mattieu Saglio, cello solo',
+				'Stephan Crump',
+				'Ernest Ranglin',
+				'Natalie hass y alasdair fraser',
+				'Yamandú (guitara) y paolo costa (clarinete)',
+				'Art ensemble of chicago',
+				'Astor Piazzolla. Persecuta',
+				'¡Folklore divertido! Para ponernos a tono de cara a nuestro proyecto de este año: Folklore ibérico',
+				'Pupurrí de música clásica para todos los públicos',
+				'Timing birds de Silvia Bolognesi',
+				'Fue un disco vanguardista y visionario que revolucionó el mundo del flamenco tradicional al fusionarlo con el rock y la poesía de Lorca de una manera muy personal y libre. Lo que dió paso a una era musical para ambos géneros.',
+				'Está considerada una de las obras más importantes de la historia del flamenco. Un disco revolucionario, que espantó en un primer momento a los puristas, para posteriormente ser considerado un clásico. En él podemos escuchar desde un bajo eléctrico, batería, hasta un sintetizador moog, que en para la época eran instrumentos inconcedibles dentro de este género musical.',
+				'Esencial para amantes del flamenco fusión, ya que gracias a Paco de Lucía, instrumentos como la flauta travesera o el cajón flamenco (que en realidad viene de Perú) se incluyen por primera vez en este género para quedarse hasta el día de hoy. Gracias a esta apuesta artística, se han podido unir muchos más instrumentos al fusionarse con otras músicas. Recordemos que en un cuadro de flamenco tradicional solo estaba la guitarra, el cante, el baile y las palmas.',
+				'El que fuera flautista de Paco de Lucía no ha parado de experimentar las distintas sonoridades que puede ofrecer este instrumento dentro del flamenco-fusión. Y considero que si el flamenco es una de las músicas vivas de nuestro país es gracias a que artistas como él han encontrado que sus raíces son las mismas que otras músicas de raíz, como el jazz o el blues, enriqueciendo y dando alas a un género que por naturaleza es en sí una fusión de varias culturas.',
+				'Concha Buika es una cantante ecuatoguineana-española. La comunidad gitana del barrio de Son Gotleu en Palma de Mallorca donde se crió fue para ella un segundo hogar, y encontró en el flamenco un modo de expresión auténtico y la salida ideal para escapar de una dura realidad de pobreza y marginalidad. En 2022, fue galardonada con la Medalla de Oro al Mérito en las Bellas Artes que otorga el Ministerio de Cultura de España.',
+				'Es un dúo de fusión entre flamenco, funk, pop y música electrónica formado en 2019. Se trata de un proyecto en el que se aprecia el flamenco como base y la fusión entre el funk y la electrónica, en una mezcla de estilos que reúne tanto sonidos de sintetizador y bajo dominante como letras profundas, familiares e introspectivas.',
+				'La libertad creativa del gran Hermeto Pascoal no conoce fronteras. Desde hacer sonar a su barba o cantar en una olla a tocar flautas y botellas llenándolas de agua en un lago...En esta lista incluyo como referente a John Cage y un fragmento de una entrevista sobre su concepción de la música y del sonido, en particular. También incluyo un vídeo que hace referencia a varios flautistas punteros en el latin-jazz.',
+				'Su música se caracteriza por integrar instrumentos y elementos tradicionales gallegos, como las gaitas, panderetas, tambores y cantos populares (muñeiras, alalás...), con beats electrónicos, sintetizadores y samples, dando como resultado un estilo que algunos llaman folktrónica. También recomiendo su disco Misturas.',
+				'Este tema forma parte de Guitarra Coral, un concierto flamenco que desdibuja las concepciones de lo clásico, lo tradicional y lo vanguardista. ',
+				'La trayectoria artística de Sakamoto ha dejado una profunda huella en la música contemporánea. Conocido por su enfoque multidisciplinario, fue célebre por su innovadora obra en el ámbito de la música electrónica, sus composiciones para películas legendarias y su compromiso con cuestiones medioambientales y sociales.',
+				'Siembra un disco de Willie Colón y Rubén Blades. Rubén Blades pensaba que las letras de las canciones de salsa podían ser algo más que "Oye mamita, ven pa’cá y vamo’ a bailar". Canciones con buenas historias y mensajes sociales que llamaba a la acción.',
+				'At least for now, un disco de Benjamin Clementine, una voz aspera, profunda, poderosa y a la vez expresiva y delicada. Benjamin Clementin dejó el colegio pronto, perdió la casa y vivió en la calle. Una larga historia que "cantar"',
+				'Pink Martini ha sido descrita  como una banda situada entre las bandas de baile cubanas de los años 30, una orquesta clásica de cámara, un pasacalles brasileño, una película de cine negro o un musical romántico de los años 40.',
+				'Coetus es una orquesta de percusiones ibéricas, ritmos folklóricos y tradicionales. Instrumentos que que a lo largo de la historia sirvieron para acompañar canciones, bailes, romances o marcar el paso de procesiones. El experimento de Coetus, según Aleix Tobias, consiste en unirlos  y dotarlos de un lenguaje propio, creando un diálogo activo entre ellos y la voz.',
+				'Fatima Spar es una cantante turca afincada en Austria. Su banda se compone de clarinete, trompeta, acordeón, contrabajo y batería,  provenientes, de Turquía, Bulgaria, Ucrania y Serbia. Canciones donde el jazz se encuentra con las músicas de raíz balcánica, con swing cabaretero o con folk centroeuropeo.',
+				'Racine carrée de Stromae, percusiones y melodías de origen africano mezclado con hip hop, pop y electrónica, letras melancólicas, críticas a la homofobia, el racismo y las relaciones tormentosas. un disco descrito por el mismo autor con la frase "Quieres llorar pero bailas sobre la melancolía"',
+				'Rage against the machine, una respuesta musical a la mediocridad política. Una banda de marcado carácter ideológico y reivindicativo. En lo musical la unificación del rap y el metal',
+				'La danza de los nadie fue el segundo disco de Hechos contra el decoro. Una banda que apareció para ser el altavoz de los marginados, desclasados, y denunciar la corrupción política y social, ellos hicieron que la música fuera un instrumento más para que su mensaje llegara a calar en una parte de la sociedad',
+				'Disco dedicado a siete compositores franceses del siglo XX. Las dotes técnicas de Pahud son excepcionales, Una interpretación magistral, rica en sonoridades y expresividad.',
+				'Ensamble fundamentalmente dedicado a la música antigua, del barroco y renacimiento, incluyendo el uso de instrumentos antiguos. En este caso una conjunción fantástica de lo antiguo con la música popular americana.',
+				'Artaud- Pescado Rabioso',
+				'Clicks modernos- Charly García',
+				'In Rainbows- Radiohead',
+				'Al final de este viaje- Silvio Rodríguez',
+				'Manifiesto- Victor Jara',
+				'White Album - The Beatles',
+				'Clube da Esquina- Milton Nascimento, Lo Borges',
+				'Off the wall - Michael Jackson',
+				'Os Afro- Sambas de Baden e Vinícius-  Baden Powel, Vinicius de Moraes',
+				'Las ultimas composiciones- Violeta Parra',
+				'Selected ambient works - Aphex Twin',
+
+			]; // Reemplazar con la lectura del CSV si es necesario
+		
+			const contenedor_general = document.getElementById("fila");
+
+			for(const [index, url] of urls.entries()){
+				const data = await getData(url);
+				console.log(data);
+				const contenedor = document.createElement("div");
+				contenedor.classList.add("col-md-4");
+				const enlace_video = document.createElement("a");
+				enlace_video.setAttribute("href", url);
+				enlace_video.classList.add("overlay-img");
+				const imagen = document.createElement("img");
+				imagen.src = data.thumbnail_url;//"assets/imgs/img-1.jpg";
+				const overlay = document.createElement("div");
+				overlay.classList.add("overlay");
+				const contenedor_des = document.createElement("div");
+				contenedor_des.classList.add("des");
+				const titulo = document.createElement("h1");
+				titulo.classList.add("title");
+				const texto_titulo = document.createTextNode(data.title);
+				titulo.appendChild(texto_titulo);
+				const descripcion = document.createElement("p");
+				const texto_descripcion = document.createTextNode(descripciones[index]);
+				descripcion.appendChild(texto_descripcion);
+				contenedor_des.appendChild(titulo);
+				contenedor_des.appendChild(descripcion);
+				enlace_video.appendChild(overlay);
+				enlace_video.appendChild(contenedor_des);
+				enlace_video.appendChild(imagen);
+				contenedor.appendChild(enlace_video);
+				contenedor_general.appendChild(contenedor);
+				}
+			}
+			
+			loadRecommendations();
+			</script>        
+
+    <!-- core  -->
+    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+
+    <!-- bootstrap affix -->
+    <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+
+    <!-- Dorang js -->
+    <script src="assets/js/dorang.js"></script>
+
+</body>
+</html>
